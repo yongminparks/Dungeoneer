@@ -1,0 +1,347 @@
+[gd_scene load_steps=40 format=2]
+
+[ext_resource path="res://Scripts/Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_idle/shieldlady_idle1.png" type="Texture" id=2]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_idle/shieldlady_idle2.png" type="Texture" id=3]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_run/shieldlady_run1.png" type="Texture" id=4]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_run/shieldlady_run2.png" type="Texture" id=5]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_run/shieldlady_run3.png" type="Texture" id=6]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_run/shieldlady_run4.png" type="Texture" id=7]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_run/shieldlady_run5.png" type="Texture" id=8]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_run/shieldlady_run6.png" type="Texture" id=9]
+[ext_resource path="res://Textures/Player/Characters/Guard/shieldlady_kick.png" type="Texture" id=10]
+[ext_resource path="res://Textures/Player/aim_arrow.png" type="Texture" id=11]
+[ext_resource path="res://Textures/Player/Ball/playerball/playerbal_normall.png" type="Texture" id=12]
+[ext_resource path="res://Textures/Player/Ball/playerball/playerball_dribble/playerball_dribble1.png" type="Texture" id=13]
+[ext_resource path="res://Textures/Player/Ball/playerball/playerball_dribble/playerball_dribble2.png" type="Texture" id=14]
+[ext_resource path="res://Textures/Player/Ball/playerball/playerball_dribble/playerball_dribble3.png" type="Texture" id=15]
+[ext_resource path="res://Textures/Player/Ball/playerball/playerball_dribble/playerball_dribble4.png" type="Texture" id=16]
+[ext_resource path="res://Textures/Player/Ball/playerball/playerball_dribble/playerball_dribble5.png" type="Texture" id=17]
+[ext_resource path="res://Scripts/Utils/ScreenShakeCamera2D.gd" type="Script" id=18]
+[ext_resource path="res://Textures/UI/healthBar/healthBarUnder.png" type="Texture" id=19]
+[ext_resource path="res://Textures/UI/healthBar/healthBarBorder.png" type="Texture" id=20]
+[ext_resource path="res://Textures/UI/healthBar/healthBarFill.png" type="Texture" id=21]
+[ext_resource path="res://Scripts/UI/HealthBar.gd" type="Script" id=22]
+[ext_resource path="res://Fonts/press_start_2p/PressStart2P.ttf" type="DynamicFontData" id=23]
+[ext_resource path="res://Textures/UI/KeyUI/KeyUI_icon.png" type="Texture" id=24]
+[ext_resource path="res://Scripts/UI/GameOverMenu.gd" type="Script" id=25]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "run",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 10 ), ExtResource( 10 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "kick",
+"speed": 20.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 5.38461
+height = 2.05981
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 4.24658, 3.03503 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 4 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "dribble",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=7]
+resource_name = "ball dribble"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("HoldingBallSprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 5, 4 ), Vector2( 8, 4 ), Vector2( 7, 4 ), Vector2( 6, 4 ), Vector2( 5, 4 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "stop"
+
+[sub_resource type="Animation" id=9]
+resource_name = "hurt"
+length = 0.5
+loop = true
+step = 0.12
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.36 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="DynamicFont" id=10]
+size = 8
+font_data = ExtResource( 23 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 8
+font_data = ExtResource( 23 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 8
+font_data = ExtResource( 23 )
+
+[sub_resource type="DynamicFont" id=13]
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 23 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 8
+font_data = ExtResource( 23 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 1 )
+speed = 400
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "idle"
+frame = 1
+playing = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+editor/display_folded = true
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=[
+"PlayerHitBox",
+]]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5 )
+shape = SubResource( 3 )
+
+[node name="KickPivot" type="Position2D" parent="."]
+
+[node name="KickSpot" type="Position2D" parent="KickPivot"]
+position = Vector2( 13, 0 )
+
+[node name="WallCheckArea" type="Area2D" parent="KickPivot/KickSpot"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KickPivot/KickSpot/WallCheckArea"]
+position = Vector2( 1, 0 )
+shape = SubResource( 4 )
+
+[node name="AimArrowSprite" type="AnimatedSprite" parent="KickPivot"]
+position = Vector2( 15, 0 )
+z_index = 1
+frames = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="HitEffectPosition" type="Position2D" parent="KickPivot"]
+position = Vector2( 15, 0 )
+
+[node name="BallPosition" type="Position2D" parent="."]
+position = Vector2( 7, 4 )
+
+[node name="HoldingBallSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 6 )
+offset = Vector2( 5, 4 )
+
+[node name="BallAnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/ball dribble" = SubResource( 7 )
+anims/stop = SubResource( 8 )
+
+[node name="KickTimer" type="Timer" parent="."]
+
+[node name="HurtTween" type="Tween" parent="."]
+
+[node name="HurtAnimation" type="AnimationPlayer" parent="."]
+anims/hurt = SubResource( 9 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+script = ExtResource( 18 )
+
+[node name="UI" type="CanvasLayer" parent="Camera2D"]
+
+[node name="UpperLeftContainer" type="HBoxContainer" parent="Camera2D/UI"]
+anchor_right = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = 26.0
+
+[node name="HealthBar" type="TextureProgress" parent="Camera2D/UI/UpperLeftContainer"]
+editor/display_folded = true
+margin_right = 64.0
+margin_bottom = 22.0
+value = 100.0
+texture_under = ExtResource( 19 )
+texture_over = ExtResource( 20 )
+texture_progress = ExtResource( 21 )
+script = ExtResource( 22 )
+
+[node name="HealthText" type="Label" parent="Camera2D/UI/UpperLeftContainer/HealthBar"]
+margin_right = 64.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color_shadow = Color( 0.235294, 0.109804, 0.188235, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 0
+text = "4/4"
+align = 1
+valign = 1
+
+[node name="KeyIcon" type="TextureRect" parent="Camera2D/UI/UpperLeftContainer"]
+visible = false
+margin_left = 68.0
+margin_right = 86.0
+margin_bottom = 22.0
+texture = ExtResource( 24 )
+
+[node name="UpperRightContainer" type="MarginContainer" parent="Camera2D/UI"]
+editor/display_folded = true
+anchor_right = 1.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = 26.0
+
+[node name="FloorLabel" type="Label" parent="Camera2D/UI/UpperRightContainer"]
+margin_top = 7.0
+margin_right = 316.0
+margin_bottom = 15.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 1
+text = "DUNGEON 2F"
+align = 2
+
+[node name="NextFloorScreen" type="CanvasLayer" parent="Camera2D"]
+editor/display_folded = true
+
+[node name="Cover" type="Node2D" parent="Camera2D/NextFloorScreen"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/NextFloorScreen/Cover"]
+margin_left = -71.0
+margin_top = -50.0
+margin_right = 415.0
+margin_bottom = 312.0
+color = Color( 0.235294, 0.109804, 0.188235, 1 )
+
+[node name="NextLevelLabel1" type="Label" parent="Camera2D/NextFloorScreen/Cover"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 104.0
+margin_top = 110.0
+margin_right = 216.0
+margin_bottom = 122.0
+custom_fonts/font = SubResource( 12 )
+text = "NEXT FLOOR"
+align = 1
+valign = 1
+
+[node name="NextFloorLabel" type="Label" parent="Camera2D/NextFloorScreen/Cover"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 104.204
+margin_top = 123.229
+margin_right = 216.204
+margin_bottom = 135.229
+custom_fonts/font = SubResource( 12 )
+text = "- DUNGEON 1F -"
+align = 1
+valign = 1
+
+[node name="GameOverMenu" type="CanvasLayer" parent="Camera2D"]
+script = ExtResource( 25 )
+
+[node name="Cover" type="ColorRect" parent="Camera2D/GameOverMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -164.0
+margin_top = -18.0
+margin_right = 161.0
+margin_bottom = 19.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/GameOverMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="GameOverText" type="Label" parent="Camera2D/GameOverMenu/VBoxContainer"]
+margin_top = 106.0
+margin_right = 320.0
+margin_bottom = 122.0
+custom_fonts/font = SubResource( 13 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "GAME OVER"
+align = 1
+
+[node name="ToRestartText" type="Label" parent="Camera2D/GameOverMenu/VBoxContainer"]
+margin_top = 126.0
+margin_right = 320.0
+margin_bottom = 134.0
+custom_fonts/font = SubResource( 14 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "Press 'Z' for the title screen"
+align = 1
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="timeout" from="KickTimer" to="." method="_on_KickTimer_timeout"]

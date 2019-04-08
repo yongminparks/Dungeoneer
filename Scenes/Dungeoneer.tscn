@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Dungeoneer/Dungeoneer.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Utils/FileFetcher.tscn" type="PackedScene" id=2]
+
+[node name="Dungeoneer" type="Node2D"]
+script = ExtResource( 1 )
+max_enemy_num = 8
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 8, 8 )
+
+[node name="FileFetcher" parent="." instance=ExtResource( 2 )]
+

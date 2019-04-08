@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/hit_ball2.png-6bcc078c0f81f1816a4970d27079dc8a.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Textures/Player/Effects/hit_ball_effect/hit_ball2.png"
+dest_files=[ "res://.import/hit_ball2.png-6bcc078c0f81f1816a4970d27079dc8a.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

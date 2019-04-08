@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/UI/TitleScreen.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/press_start_2p/PressStart2P.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 8
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 8
+font_data = ExtResource( 3 )
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Background" parent="." instance=ExtResource( 2 )]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -160.0
+margin_right = 160.0
+margin_bottom = 100.0
+
+[node name="Title" type="Label" parent="UI/VBoxContainer"]
+margin_right = 320.0
+margin_bottom = 73.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0.141176, 0.494118, 0.564706, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "
+
+
+DUNGEONEER"
+align = 1
+valign = 1
+
+[node name="Subtitle" type="Label" parent="UI/VBoxContainer"]
+margin_top = 77.0
+margin_right = 320.0
+margin_bottom = 85.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0.141176, 0.494118, 0.564706, 1 )
+custom_constants/shadow_offset_x = 0
+text = "- Procedural Lavel Generator -"
+align = 1
+
+[node name="ToStart" type="Label" parent="UI/VBoxContainer"]
+margin_top = 89.0
+margin_right = 320.0
+margin_bottom = 196.0
+custom_fonts/font = SubResource( 3 )
+text = "
+
+
+
+
+
+
+Press 'Z' to start the demo
+
+"
+align = 1
+valign = 1
+
+[node name="ToStart2" type="Label" parent="UI/VBoxContainer"]
+margin_top = 200.0
+margin_right = 320.0
+margin_bottom = 230.0
+custom_fonts/font = SubResource( 3 )
+text = "<Controls>
+Move: Arrow keys
+Shoot: X"
+align = 1
+valign = 1
+

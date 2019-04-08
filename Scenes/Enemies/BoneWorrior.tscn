@@ -1,0 +1,75 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://Scripts/Enemies/BoneWorrior/BoneWorrior.gd" type="Script" id=1]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_ready/boneWorrior_ready1.png" type="Texture" id=2]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_ready/boneWorrior_ready2.png" type="Texture" id=3]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_ready/boneWorrior_ready3.png" type="Texture" id=4]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_ready/boneWorrior_ready4.png" type="Texture" id=5]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_ready/boneWorrior_ready5.png" type="Texture" id=6]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_ready/boneWorrior_ready6.png" type="Texture" id=7]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_ready/boneWorrior_ready7.png" type="Texture" id=8]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_ready/boneWorrior_ready8.png" type="Texture" id=9]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_run/boneWorrior_run1.png" type="Texture" id=10]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_run/boneWorrior_run2.png" type="Texture" id=11]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_run/boneWorrior_run3.png" type="Texture" id=12]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_run/boneWorrior_run4.png" type="Texture" id=13]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_run/boneWorrior_run5.png" type="Texture" id=14]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_hurt/boneWorrior_hurt_white.png" type="Texture" id=15]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_attack/boneWorrior_attack2.png" type="Texture" id=16]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_attack/boneWorrior_attack3.png" type="Texture" id=17]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_attack/boneWorrior_attack4.png" type="Texture" id=18]
+[ext_resource path="res://Textures/ Enemies/BoneWorrior/boneWorrior_attack/boneWorrior_attack5.png" type="Texture" id=19]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4.66391, 3.15664 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "ready",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "run",
+"speed": 9.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "attack",
+"speed": 6.0
+} ]
+
+[node name="BoneWorrior" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+animation = "hurt"
+playing = true
+offset = Vector2( 0, -23 )
+
+[node name="ReadyTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SeekChangeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HurtTween" type="Tween" parent="."]
+
+[connection signal="timeout" from="ReadyTimer" to="." method="_on_ReadyTimer_timeout"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
+[connection signal="timeout" from="SeekChangeTimer" to="." method="_on_SeekChangeTimer_timeout"]

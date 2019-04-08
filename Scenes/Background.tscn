@@ -1,0 +1,14 @@
+[gd_scene format=2]
+
+[node name="Background" type="Node2D"]
+editor/display_folded = true
+scale = Vector2( 1000, 1000 )
+z_index = -100
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -15.0
+margin_top = -15.0
+margin_right = 25.0
+margin_bottom = 25.0
+color = Color( 0.231373, 0.109804, 0.184314, 1 )
+
